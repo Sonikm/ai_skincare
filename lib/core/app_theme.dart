@@ -15,7 +15,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       primaryColor: AppColors.primary,
-      scaffoldBackgroundColor: AppColors.background,
+      scaffoldBackgroundColor: AppColors.primary,
       bottomSheetTheme: const BottomSheetThemeData(
         backgroundColor: Colors.transparent,
       ),

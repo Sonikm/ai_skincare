@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:ai_skincare/core/constents.dart';
+import 'package:ai_skincare/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -94,34 +95,45 @@ class SplashScreen extends StatelessWidget {
                               ),
                               color: Colors.white.withValues(alpha: 0.15),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    "Start My Journey",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      "Start My Journey",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
-                                ),
 
-                                Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(40),
+                                  Container(
+                                    padding: const EdgeInsets.all(16),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                    child: const Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.black,
+                                      size: 18,
+                                    ),
                                   ),
-                                  child: const Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Colors.black,
-                                    size: 18,
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
