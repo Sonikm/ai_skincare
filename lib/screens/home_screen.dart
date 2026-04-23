@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:ai_skincare/core/constents.dart';
+import 'package:ai_skincare/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +15,19 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
 
   List<String> tabs = ["All", "Acne", "Dry", "Oily", "Sensitive"];
+  PageController _controller = PageController(viewportFraction: 0.75);
+  double currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _controller.addListener(() {
+      setState(() {
+        currentPage = _controller.page ?? 0;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,142 +202,30 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
 
               SizedBox(height: defaultPadding),
-
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.all(defaultPadding),
-                  constraints: BoxConstraints(maxHeight: 400),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Kammi Botanical\nGlow serum",
-                            style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-
-                          Container(
-                            padding: EdgeInsets.all(defaultPadding),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(Icons.favorite, color: Colors.red),
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-
-                      Stack(
-                        children: [
-                          /// BLUR LAYER WITH GRADIENT
-                          Positioned.fill(
-                            child: ClipRect(
-                              child: ShaderMask(
-                                shaderCallback: (rect) {
-                                  return const LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      Colors.transparent,
-                                      Colors.transparent,
-                                      Colors.black54,
-                                      Colors.black,
-                                    ],
-                                    stops: [0.0, 0.6, 0.8, 1.0],
-                                  ).createShader(rect);
-                                },
-                                blendMode: BlendMode.dstIn,
-                                child: BackdropFilter(
-                                  filter: ImageFilter.blur(
-                                    sigmaX: 18,
-                                    sigmaY: 18,
-                                  ),
-                                  child: Container(
-                                    color: Colors.white.withValues(alpha: 0.08),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          /// CONTENT (NOT AFFECTED BY BLUR MASK)
-                          /// GLASS BUTTON
-                          SizedBox(
-                            width: double.infinity,
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 6,
-                                horizontal: 6,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.4),
-                                  width: 1.2,
-                                ),
-                                color: Colors.white.withValues(alpha: 0.15),
-                              ),
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HomeScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(left: 20),
-                                      child: Text(
-                                        "Kammi Serum Price",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-
-                                    Container(
-                                      padding: const EdgeInsets.all(12),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Text(
-                                        "48rs",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+              SizedBox(
+                height: 300,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ProductCard(
+                      image: "assets/images/prod_1.jpg",
+                      title: "Kammi Botanical\nGlow Serum",
+                      price: "₹48",
+                    ),
+                    ProductCard(
+                      image: "assets/images/prod_2.jpg",
+                      title: "Skin1004\nMadagascar",
+                      price: "₹65",
+                    ),
+                    ProductCard(
+                      image: "assets/images/prod_1.jpg",
+                      title: "Vitamin C\nBright Serum",
+                      price: "₹72",
+                    ),
+                  ],
                 ),
               ),
+
               SizedBox(height: defaultPadding),
             ],
           ),
